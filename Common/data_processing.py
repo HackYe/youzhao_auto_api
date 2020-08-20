@@ -72,14 +72,18 @@ class data_processing:
                     data = eval(
                         headle_re.str_data('${rely_key}', data,
                                            eval(excel_data.get_cell_value(i, 5, sheet_number))))
+                else:
+                    data = eval(data)
 
-            # 7.处理修改手机号不需要验证码逻辑
+            # 7.处理修改手机号不需要验证码需要token逻辑
             elif str(data).find('${new_phone_no_code}') != -1:
                 data = headle_re.str_data('${new_phone_no_code}', data, gd.get_new_phone())
                 if str(data).find('${rely_key}') != -1:
                     data = eval(
                         headle_re.str_data('${rely_key}', data,
                                            eval(excel_data.get_cell_value(i, 5, sheet_number))))
+                else:
+                    data = eval(data)
 
             # 8.rely_key为单个前置条件替换通用str
             elif str(data).find('${rely_key}') != -1:
@@ -90,10 +94,6 @@ class data_processing:
             elif str(data).find('${rely_keys}') != -1:
                 res_data = headle_re.strs_data(data, data_list)
                 data = eval(res_data)
-
-            # 10.替换SQL逻辑
-            elif str(data).find('${sql}') != -1:
-                data = eval(headle_re.str_data('${sql}', data, handle_mysql.fetch_one(mysql_query)))
 
             else:
                 data = eval(data)

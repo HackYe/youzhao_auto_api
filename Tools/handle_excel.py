@@ -47,7 +47,7 @@ class HandExcel:
         data = self.get_sheet_data(index).cell(row=row, column=cols).value
         return data
 
-    def get_rows(self,index=None):
+    def get_rows(self, index=None):
         '''
         获取最大行数
         '''
@@ -63,14 +63,14 @@ class HandExcel:
             row_list.append(i.value)
         return row_list
 
-    def get_columns_value(self, cols=None):
+    def get_columns_value(self, index=None, cols=None):
         '''
         获取某一列得数据
         '''
         columns_list = []
         if cols == None:
             cols = 'A'
-        columns_list_data = self.get_sheet_data()[cols]
+        columns_list_data = self.get_sheet_data(index)[cols]
         for i in columns_list_data:
             columns_list.append(i.value)
         return columns_list
@@ -86,12 +86,12 @@ class HandExcel:
         wr.cell(row, cols, value)
         wb.save(dir_config.excel_path)
 
-    def get_rows_number(self, case_id):
+    def get_rows_number(self, case_id, index=None):
         '''
         获取行号
         '''
         num = 1
-        cols_data = self.get_columns_value()
+        cols_data = self.get_columns_value(index=index)
         for i in cols_data:
             if case_id == i:
                 return num
@@ -112,4 +112,8 @@ class HandExcel:
 excel_data = HandExcel()
 if __name__ == '__main__':
     # print(HandExcel().get_excel_data())
-    excel_data.excel_write_data(6, 1, 'hellotest')
+    # excel_data.excel_write_data(6, 1, 'hellotest')
+    # print(excel_data.get_excel_data(9))
+    print(excel_data.get_rows(9))
+    test_data = excel_data.get_excel_data(9)
+    print(test_data)

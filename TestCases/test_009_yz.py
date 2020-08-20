@@ -57,11 +57,11 @@ class TestRunMain(unittest.TestCase):
         case_id = test_data[0]
         i = excel_data.get_rows_number(case_id, sheet_number)
         sleep = test_data[18]
-        if sleep != None:
-            time.sleep(sleep)
         is_run = test_data[2]
         if str(is_run).upper() == 'YES':
             print('正在测试的用例是{}'.format(test_data[1]))
+            if sleep != None:
+                time.sleep(sleep)
             method = test_data[8]
             url = test_data[7]
             data_condition = test_data[3]
@@ -79,12 +79,12 @@ class TestRunMain(unittest.TestCase):
                     rely_key = str(data_condition).split(',')
                     test_value = zip(rely_key, rely_value)
                     for items in test_value:
-                        rows_number = excel_data.get_rows_number(items[0])
+                        rows_number = excel_data.get_rows_number(items[0], sheet_number)
                         data_value = excel_data.get_cell_value(rows_number, 15, sheet_number)
                         res = eval(items[1])
                         data_list.append(res)
                 else:
-                    rows_number = excel_data.get_rows_number(data_condition)
+                    rows_number = excel_data.get_rows_number(data_condition, sheet_number)
                     data_value = excel_data.get_cell_value(rows_number, 15, sheet_number)
             if url_condition != None:
                 url_list = []
