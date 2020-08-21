@@ -50,6 +50,7 @@ class GetData:
         res_data = int(round(time.time() * 1000000))
         return res_data
 
+
 gd = GetData()
 
 if __name__ == '__main__':

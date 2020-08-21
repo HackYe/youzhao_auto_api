@@ -14,6 +14,7 @@ from Tools.handle_init import handle_ini
 from Tools.handle_replace import headle_re
 from Tools.handle_mysql import handle_mysql
 from Common.get_data import gd
+from Common.get_cookies import gc
 from Common.data_processing import dp
 from Common.url_processing import up
 from Common.mysql_processing import mp
@@ -29,8 +30,6 @@ token_row = 4
 # 获取excel
 test_data = excel_data.get_excel_data(sheet_number)
 
-
-# print(test_data)
 
 
 @ddt.ddt
@@ -125,6 +124,11 @@ class TestRunMain(unittest.TestCase):
                 header = eval(headle_re.re_data(header, gd.get_token(token_row, 15, sheet_number)))
                 # 替换header里变量
                 # print('带token的header是------>', header)
+            elif is_header.upper() == 'Admin':
+                # 替换Admin后台header
+                header = handle_ini.get_value(key='header', node='Admin', file_name='header.ini')
+                header = eval(headle_re.re_data(header, gc.get_cookies()))
+                print('获取到的Admin_header是', header)
             else:
                 header = None
             file = test_data[16]

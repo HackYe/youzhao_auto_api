@@ -7,6 +7,7 @@
 
 import openpyxl
 from Common import dir_config
+import re
 
 
 class HandExcel:
@@ -60,7 +61,11 @@ class HandExcel:
         '''
         row_list = []
         for i in self.get_sheet_data(index)[row]:
-            row_list.append(i.value)
+            data = bool(re.search('^O[0-9]*', i.coordinate)) or bool(re.search('^P[0-9]*', i.coordinate))
+            if data == False:
+                row_list.append(i.value)
+            else:
+                row_list.append(None)
         return row_list
 
     def get_columns_value(self, index=None, cols=None):
