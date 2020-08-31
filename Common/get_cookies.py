@@ -32,11 +32,10 @@ class GetCookies:
         res = s.get(url=admin_user_url)
         cookies = res.request.headers
         cookie = cookies['Cookie']
-        print(cookie)
         return cookie
 
 
 gc = GetCookies()
 
 if __name__ == '__main__':
-    gc.get_cookies()
+    print(gc.get_cookies())

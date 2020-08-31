@@ -14,6 +14,7 @@ from Tools.handle_init import handle_ini
 from Tools.handle_replace import headle_re
 from Tools.handle_mysql import handle_mysql
 from Common.get_data import gd
+from Common.get_cookies import gc
 from Common.data_processing import dp
 from Common.url_processing import up
 from Common.mysql_processing import mp
@@ -21,16 +22,14 @@ import time
 import json
 
 # sheet下标(从0开始)
-sheet_number = 9
+sheet_number = 1
 # sheet名称(sheet对应的名字)
-sheet_name = 'scene_8'
+sheet_name = 'scene_1'
 # 获取token的行号(从1开始)
 token_row = 4
 # 获取excel
 test_data = excel_data.get_excel_data(sheet_number)
 
-
-# print(test_data)
 
 
 @ddt.ddt
@@ -57,11 +56,11 @@ class TestRunMain(unittest.TestCase):
         case_id = test_data[0]
         i = excel_data.get_rows_number(case_id, sheet_number)
         sleep = test_data[18]
-        if sleep != None:
-            time.sleep(sleep)
         is_run = test_data[2]
         if str(is_run).upper() == 'YES':
             print('正在测试的用例是{}'.format(test_data[1]))
+            if sleep != None:
+                time.sleep(sleep)
             method = test_data[8]
             url = test_data[7]
             data_condition = test_data[3]
@@ -79,12 +78,12 @@ class TestRunMain(unittest.TestCase):
                     rely_key = str(data_condition).split(',')
                     test_value = zip(rely_key, rely_value)
                     for items in test_value:
-                        rows_number = excel_data.get_rows_number(items[0])
+                        rows_number = excel_data.get_rows_number(items[0], sheet_number)
                         data_value = excel_data.get_cell_value(rows_number, 15, sheet_number)
                         res = eval(items[1])
                         data_list.append(res)
                 else:
-                    rows_number = excel_data.get_rows_number(data_condition)
+                    rows_number = excel_data.get_rows_number(data_condition, sheet_number)
                     data_value = excel_data.get_cell_value(rows_number, 15, sheet_number)
             if url_condition != None:
                 url_list = []
@@ -125,6 +124,11 @@ class TestRunMain(unittest.TestCase):
                 header = eval(headle_re.re_data(header, gd.get_token(token_row, 15, sheet_number)))
                 # 替换header里变量
                 # print('带token的header是------>', header)
+            elif is_header.upper() == 'ADMIN':
+                # 替换Admin后台header
+                header = handle_ini.get_value(key='header', node='Admin', file_name='header.ini')
+                header = eval(headle_re.re_data(header, gc.get_cookies()))
+                print('获取到的Admin_header是', header)
             else:
                 header = None
             file = test_data[16]

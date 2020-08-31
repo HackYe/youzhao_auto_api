@@ -22,9 +22,9 @@ import time
 import json
 
 # sheet下标(从0开始)
-sheet_number = 9
+sheet_number = 1
 # sheet名称(sheet对应的名字)
-sheet_name = 'scene_8'
+sheet_name = 'scene_1'
 # 获取token的行号(从1开始)
 token_row = 4
 # 获取excel
@@ -124,7 +124,7 @@ class TestRunMain(unittest.TestCase):
                 header = eval(headle_re.re_data(header, gd.get_token(token_row, 15, sheet_number)))
                 # 替换header里变量
                 # print('带token的header是------>', header)
-            elif is_header.upper() == 'Admin':
+            elif is_header.upper() == 'ADMIN':
                 # 替换Admin后台header
                 header = handle_ini.get_value(key='header', node='Admin', file_name='header.ini')
                 header = eval(headle_re.re_data(header, gc.get_cookies()))
