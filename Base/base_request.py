@@ -83,7 +83,10 @@ class BaseRequest:
             if method.upper() == 'GET':
                 res = self.send_get_json(url, data, header, file, cookie)
             elif method.upper() == 'POST':
-                res = self.send_post_json(url, data, header, file, cookie)
+                if 'automation' not in url:
+                    res = self.send_post_json(url, data, header, file, cookie)
+                else:
+                    res = self.send_post(url, data, header, file, cookie)
             elif method.upper() == 'PUT':
                 res = self.send_put(url, data, header, file, cookie)
             elif method.upper() == 'DELETE':

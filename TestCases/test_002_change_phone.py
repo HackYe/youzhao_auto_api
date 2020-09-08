@@ -22,9 +22,9 @@ import time
 import json
 
 # sheet下标(从0开始)
-sheet_number = 1
+sheet_number = 3
 # sheet名称(sheet对应的名字)
-sheet_name = 'scene_1'
+sheet_name = 'Scene_002'
 # 获取token的行号(从1开始)
 token_row = 4
 # 获取excel

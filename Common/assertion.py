@@ -82,6 +82,16 @@ class assertion_class:
             except Exception as e:
                 print('报错了，错误是:', e)
                 raise e
+        elif excepect_method == 'result':
+            try:
+                excepect_result = str(excepect_result).split('##')
+                if str(excepect_result[0]) == str(eval(excepect_result[1])):
+                    return True
+                else:
+                    return False
+            except Exception as e:
+                print('报错了，错误是:', e)
+                raise e
 
 
 # 实例化
