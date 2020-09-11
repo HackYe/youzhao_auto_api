@@ -20,7 +20,7 @@ def run_01():
     discover = unittest.defaultTestLoader.discover(test_case_path, pattern='test_*.py', top_level_dir=None)
     now = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime(time.time()))
     reportName = now + '_repot.html'
-    description = "三节课接口测试报告"
+    description = "有招接口测试报告"
     BeautifulReport(discover).report(filename=reportName, description=description, report_dir=report_path)
     # print(discover)
     report = os.path.join(report_path, reportName)
@@ -31,13 +31,13 @@ def run_01():
 
 # 第二个样式的报告
 def run_02():
-    discover = unittest.defaultTestLoader.discover(test_case_path, pattern='test_008_*.py',
+    discover = unittest.defaultTestLoader.discover(test_case_path, pattern='test_*.py',
                                                    top_level_dir=None)
     now = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime(time.time()))
     reportName = now + '_report.html'
     report = os.path.join(report_path, reportName)
-    runner = html_new(title="三节课接口测试报告",
-                      description='三节课' + str(gd.get_env()) + '接口测试报告',
+    runner = html_new(title="有招接口测试报告",
+                      description='有招' + str(gd.get_env()) + '接口测试报告',
                       stream=open(report, "wb+"),
                       verbosity=2,
                       retry=0,

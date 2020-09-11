@@ -64,4 +64,4 @@ class GetData:
 gd = GetData()
 
 if __name__ == '__main__':
-    print(gd.get_fixed_proxies())
+    print(gd.get_proxies())
