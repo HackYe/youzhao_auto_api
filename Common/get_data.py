@@ -50,8 +50,18 @@ class GetData:
         res_data = int(round(time.time() * 1000000))
         return res_data
 
+    def get_proxies(self):
+        res_data = {"http": "http://39.106.221.146:{0}".format(excel_data.get_cell_value(7, 2, 0)),
+                    "https": "https://39.106.221.146:{0}".format(excel_data.get_cell_value(7, 2, 0))}
+        return res_data
+
+    def get_fixed_proxies(self):
+        res_data = {"http": "http://39.106.221.146:36007",
+                    "https": "https://39.106.221.146:36007"}
+        return res_data
+
 
 gd = GetData()
 
 if __name__ == '__main__':
-    print(gd.get_Timestamp())
+    print(gd.get_fixed_proxies())

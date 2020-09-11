@@ -16,7 +16,8 @@ class BaseRequest:
         '''
         发送post请求
         '''
-        response = requests.post(url=url, data=data, headers=header, files=file, cookies=cookie)
+        response = requests.post(url=url, data=data, headers=header, files=file, cookies=cookie,
+                                 proxies=gd.get_proxies())
         res = response.text
         return res
 
@@ -24,7 +25,8 @@ class BaseRequest:
         '''
         发送post请求
         '''
-        response = requests.post(url=url, json=data, headers=header, files=file, cookies=cookie)
+        response = requests.post(url=url, json=data, headers=header, files=file, cookies=cookie,
+                                 proxies=gd.get_fixed_proxies())
         res = response.text
         return res
 
@@ -32,7 +34,8 @@ class BaseRequest:
         '''
         发送get请求
         '''
-        response = requests.get(url=url, params=data, headers=header, files=file, cookies=cookie)
+        response = requests.get(url=url, params=data, headers=header, files=file, cookies=cookie,
+                                proxies=gd.get_proxies())
         res = response.text
         return res
 
@@ -40,7 +43,8 @@ class BaseRequest:
         '''
         发送get请求
         '''
-        response = requests.get(url=url, json=data, headers=header, files=file, cookies=cookie)
+        response = requests.get(url=url, json=data, headers=header, files=file, cookies=cookie,
+                                proxies=gd.get_fixed_proxies())
         res = response.text
         return res
 
@@ -48,7 +52,8 @@ class BaseRequest:
         '''
         发送put请求
         '''
-        response = requests.put(url=url, data=data, headers=header, files=file, cookies=cookie)
+        response = requests.put(url=url, data=data, headers=header, files=file, cookies=cookie,
+                                proxies=gd.get_proxies())
         res = response.text
         return res
 
@@ -56,7 +61,8 @@ class BaseRequest:
         '''
         发送put请求
         '''
-        response = requests.delete(url=url, data=data, headers=header, files=file, cookies=cookie)
+        response = requests.delete(url=url, data=data, headers=header, files=file, cookies=cookie,
+                                   proxies=gd.get_proxies())
         res = response.text
         return res
 
@@ -107,11 +113,13 @@ if __name__ == "__main__":
     # request = BaseRequest()
     # request.run_main('get', '/coupon/list', "{'username':'11111'}")
     url = 'http://pre.admin.sanjieke.cn/User/saveRole'
-    data = {"id": "", "user_role_id": "10", "user_id": "608001696"}
+    data = {"id": "", "user_role_id": "10", "user_id": "608001695"}
+    home_url = 'http://home.pre.sanjieke.cn/api/app-youzhao/invitation/code/add'
+    home_data = {"type":10,"invitation_times":1,"user_ids":["608001821"],"invitation_code_num":1,"status":10}
     header = {'Accept': '*/*',
-              'Content-Type': 'text/plain',
+              'Content-Type': 'application/json',
               'Accept-Encoding': 'gzip, deflate, br',
               'Accept-Language': 'zh-CN,zh;q=0.9',
-              'Cookie': 'PHPSESSID=sjlq9h8v4ejt114vlgpogo72he; admin_id=10000050; admin_jwt=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1OTg2MTU3NDYsImlkIjoxMDAwMDA1MCwiaXNzIjoic2prLXpldXMtc3lzdGVtIiwibmFtZSI6Inl1YW55ZSIsIm9yaWdfaWF0IjoxNTk4MDEwOTQ2LCJ1aWQiOjEwMDAwMDUwLCJ1bmFtZSI6Inl1YW55ZSJ9.EbHpXlU7qAl9wOvzHZQo3AIm-9v5oFtgB5LKj5crTFC_fKTPZ_QPcfw8h9HZGcTxJ0OzJcluQCnEAXzhTf8vhGMYPT8cAdKdDTbWqabK7ERBfNy915ghAUMcVKtZYt-S6ni3CRlF3FKUD3CgdtYuMibgpaCoXmthpCwrNVTZNZg; admin_login_time=1598010947; admin_name=%E8%A2%81%E9%87%8E; admin_phone=18500336630; admin_sign=2f2d3af0332b199a978cdb35ac856e02; admin_uid=608001067; admin_uname=Hello'}
-    res = request.run_main('post', url, data, header)
+              'Cookie': 'admin_id=10000050; admin_jwt=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDAzOTQwODgsImlkIjoxMDAwMDA1MCwiaXNzIjoic2prLXpldXMtc3lzdGVtIiwibmFtZSI6Inl1YW55ZSIsIm9yaWdfaWF0IjoxNTk5Nzg5Mjg4LCJ1aWQiOjEwMDAwMDUwLCJ1bmFtZSI6Inl1YW55ZSJ9.kXl1SDoPVh6m3OdNvqpZMk8IApDvQLkrx-k0Ln9xtUhEVuv-QnXsOvOGfqsbROb0x1KeHW7jp0rWmc35w-men4Mb56d0Ng9D-S1RISCZ8lhO6L0lbI6b6hnI3zE0BHbDnQNW7owYXTes0pUz0_4dIvD3lZxk5acZZ3envZG_3k8; admin_login_time=1599789288; admin_name=%E8%A2%81%E9%87%8E; admin_phone=18500336630; admin_sign=7fd7092a4e51fe954108bae06aa4f93b; home_login_id=10000050; home_login_key=594ebCgiGzdbm9xQQyk%2B81O8BuJ6au3obOUlm1sFICgNuVxwmw; home_login_name=%E8%A2%81%E9%87%8E; home_login_phone=18500336630'}
+    res = request.run_main('post', home_url, home_data, header)
     print(res)
