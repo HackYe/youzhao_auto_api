@@ -30,7 +30,7 @@ class HeadleRe:
     def find_data(self, raw_value):
         '''
         :param raw_value: 需要替换的data
-        :return: 返回True和False
+        :return: 返回True 或者 False
         '''
         data = '\$\{.*?}'
         key = bool(re.search(data, raw_value))

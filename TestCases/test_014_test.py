@@ -22,11 +22,11 @@ import time
 import json
 
 # sheet下标(从0开始)
-sheet_number = 1
+sheet_number = 15
 # sheet名称(sheet对应的名字)
-sheet_name = 'all'
+sheet_name = 'Scene_014'
 # 获取token的行号(从1开始)
-token_row = 4
+token_row = 5
 # 获取excel
 test_data = excel_data.get_excel_data(sheet_number)
 
@@ -49,7 +49,7 @@ class TestRunMain(unittest.TestCase):
         handle_mysql.close()
 
     @ddt.data(*test_data)
-    def test_run_case(self, test_data):
+    def test_run_case_01(self, test_data):
         global header, code, msg, data_list, res_data, url_list
         global data_value, url_value
         case_id = test_data[0]
@@ -66,12 +66,12 @@ class TestRunMain(unittest.TestCase):
             rely_value = test_data[4]
             url_condition = test_data[5]
             url_rely_value = test_data[6]
-            if rely_value is not None:
+            if rely_value != None:
                 rely_value = str(rely_value).split(',')
-            if url_rely_value is not None:
+            if url_rely_value != None:
                 url_rely_value = str(url_rely_value).split(',')
             # data的前置条件
-            if data_condition is not None:
+            if data_condition != None:
                 data_list = []
                 if str(data_condition).find(',') != -1:
                     rely_key = str(data_condition).split(',')
@@ -84,7 +84,7 @@ class TestRunMain(unittest.TestCase):
                 else:
                     rows_number = excel_data.get_rows_number(data_condition, sheet_number)
                     data_value = excel_data.get_cell_value(rows_number, 15, sheet_number)
-            if url_condition is not None:
+            if url_condition != None:
                 url_list = []
                 if str(url_condition).find(',') != -1:
                     url_rely_key = str(url_condition).split(',')
@@ -98,18 +98,18 @@ class TestRunMain(unittest.TestCase):
                     rows_number = excel_data.get_rows_number(url_condition)
                     url_value = excel_data.get_cell_value(rows_number, 15, sheet_number)
             mysql_query = test_data[17]
-            if mysql_query is not None:
+            if mysql_query != None:
                 mysql_query = mp.mysql_re_method(mysql_query)
             data = test_data[9]
             # 处理url
-            if url is not None:
-                if url_condition:
+            if url != None:
+                if url_condition == None:
                     url = up.url_re_method(url, i, sheet_number)
                 else:
                     url = up.url_re_method(url, i, sheet_number, url_value, url_list)
             # 处理data
-            if data is not None:
-                if data_condition:
+            if data != None:
+                if data_condition == None:
                     data = dp.data_re_method(data, mysql_query, i, sheet_number)
                 else:
                     data = dp.data_re_method(data, mysql_query, i, sheet_number, data_value, data_list)
@@ -128,15 +128,10 @@ class TestRunMain(unittest.TestCase):
                 header = handle_ini.get_value(key='header', node='Admin', file_name='header.ini')
                 header = eval(headle_re.re_data(header, gc.get_cookies()))
                 print('获取到的Admin_header是', header)
-            elif is_header.upper() == 'HOME':
-                # 替换Home后台header
-                header = handle_ini.get_value(key='header', node='Home', file_name='header.ini')
-                header = eval(headle_re.re_data(header, gc.get_home_cookies()))
-                print('获取到的Home_header是', header)
             else:
                 header = None
             file = test_data[16]
-            if file is not None:
+            if file != None:
                 # 判断是否有值
                 file = eval(test_data[16])
             excepect_method = test_data[12]
