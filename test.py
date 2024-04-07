@@ -15,7 +15,7 @@ import requests
 url = 'http://pre.admin.sanjieke.cn/User/saveRole'
 auto_url = 'http://cashier.i.pre.3jk.ink:36008/api/notify/automation'
 data = {"id": "", "user_role_id": "10", "user_id": "608001696"}
-auto_data = {'transaction_id': 'YZ1599539563779893', 'total_amount': '1', 'order_sn': '123'}
+auto_data = {'transaction_id': 'YZ1599539563779893', 'total_amount': '1', 'order_sn': '1234'}
 header = {'Accept': '*/*',
           'Content-Type': 'text/plain',
           'Accept-Encoding': 'gzip, deflate, br',
